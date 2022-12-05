@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Shape
+﻿namespace Shape
 {
     /// <summary>
     /// Интерфейс фигуры
@@ -12,7 +8,6 @@ namespace Shape
         /// <summary>
         /// Площадь фигуры
         /// </summary>
-        /// <returns></returns>
-        double GetSquare();
+        double Square { get; }
     }
 }

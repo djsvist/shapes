@@ -1,24 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Data.Common;
 
 namespace Shape.Structs
 {
-    public struct Circle : IShape
+    public struct Circle : IShape, IEquatable<Circle>
     {
-        public double Radius { get; set; }
+        public decimal Radius { get; }
 
-        public Circle(double radius)
+        public Circle(decimal radius)
         {
             if (radius < 0)
-                throw new ArgumentException("Radius can not be less than zero", "radius");
+                throw new ArgumentException("Radius can not be less than zero", nameof(radius));
 
             Radius = radius;
         }
 
-        public double GetSquare()
+        public double Square => Math.PI * Math.Pow((double)Radius, 2d);
+
+        public bool Equals(Circle other)
         {
-            return Math.PI * Math.Pow(Radius, 2d);
+            return Radius.Equals(other.Radius);
         }
+
+        public override bool Equals(object obj)
+        {
+            return obj is Circle other && Equals(other);
+        }
+
+        public override int GetHashCode()
+        {
+            return Radius.GetHashCode();
+        }
+
+        public static bool operator == (Circle left, Circle right) => left.Equals(right);
+
+        public static bool operator != (Circle left, Circle right) => !left.Equals(right);
     }
 }
